@@ -1,21 +1,29 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
+import {getGal} from "../api/Search.ts";
+import {ElMessage} from "element-plus";
 
 const searchQuery = ref('')
 const searched = ref(false)
-const results = ref([])
+const results = ref<API.GalVO[]>([])
 
-const handleSearch = () => {
-  results.value = [
-    `与"${searchQuery.value}"相关的结果1`,
-    `与"${searchQuery.value}"相关的结果2`,
-    `与"${searchQuery.value}"相关的结果3`,
-  ]
-  searched.value = true
-}
-const handleInput = () => {
-  // 输入时不隐藏结果，只有清空时才重置
-  if (!searchQuery.value) searched.value = false
+defineOptions({
+  name: 'SearchComponent'
+})
+
+const search = async () => {
+    if (searchQuery.value === ''){
+        return;
+    }
+    let result = await getGal(searchQuery.value);
+    if (result.code === 0){
+        results.value = result.data;
+        searched.value = true;
+    }else {
+        results.value = [];
+        searched.value = false;
+        ElMessage("没找到资源")
+    }
 }
 </script>
 
@@ -24,13 +32,12 @@ const handleInput = () => {
     <div :class="['glass-card', 'main-card', { 'moved': searched }]">
       <h1 class="title">Galgame 搜索</h1>
       <!-- <p class="subtitle">一站式查找你想要的游戏</p> -->
-      <form class="search-form" @submit.prevent="handleSearch">
+      <form class="search-form" @submit.prevent="search">
         <input
           v-model="searchQuery"
           class="search-input"
           type="text"
           placeholder="请输入游戏名称..."
-          @input="handleInput"
         />
         <button class="search-btn" type="submit">搜索</button>
       </form>
@@ -40,7 +47,7 @@ const handleInput = () => {
         <h2 class="result-title">搜索结果</h2>
         <div class="dropdown">
           <ul>
-            <li v-for="(item, idx) in results" :key="idx">{{ item }}</li>
+            <li v-for="item in results" :key="item.name"><a :href="`${item.url}`">{{ item.name }}</a></li>
           </ul>
         </div>
       </div>
@@ -49,6 +56,12 @@ const handleInput = () => {
 </template>
 
 <style scoped>
+a {
+    text-decoration: none;
+    color: #22223b;
+    transition: color 0.2s;
+}
+
 .bg-full {
   width: 100vw;
   height: 100vh;
@@ -170,12 +183,37 @@ const handleInput = () => {
   max-height: 260px;
   overflow-y: auto;
   transition: all 0.4s;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(238,9,121,0.3) rgba(255,255,255,0.1);
 }
+
+/* 自定义滚动条样式 - Webkit浏览器 */
+.dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dropdown::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+  margin: 4px;
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+  background: rgba(238,9,121,0.3);
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+
+.dropdown::-webkit-scrollbar-thumb:hover {
+  background: rgba(238,9,121,0.5);
+}
+
 .dropdown ul {
   list-style: none;
   margin: 0;
   padding: 0.7rem 0.5rem;
 }
+
 .dropdown li {
   padding: 0.7rem 1.2rem;
   font-size: 1.08rem;
