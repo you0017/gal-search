@@ -53,6 +53,22 @@ const search = async () => {
       </div>
     </transition>
   </div>
+  <div class="aside-card">
+    <div class="aside-card-content">
+      <div class="aside-card-content-item">
+        <div class="aside-card-content-item-title">
+          <h2>Galgame 搜索</h2>
+          <p>请收藏<a href="https://index.youyou.love" style="color: #ff6a00;">主页</a>，方便下次访问</p>
+          <div class="aside-card-content-item-content">
+            <div class="aside-card-content-item-content-item">
+              <div class="aside-card-content-item-content-item-title">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -239,5 +255,20 @@ a {
 .fade-slide-enter-to, .fade-slide-leave-from {
   opacity: 1;
   transform: translateY(0) scale(1);
+}
+.aside-card {
+  position:fixed;
+  right: 0;
+  top: 50%;
+  /*以当前位置，以当前元素大小向上移动百分之五十，保证绝对剧中*/
+  transform: translateY(-50%);
+  width: 300px;
+  height: 300px;
+  /*背景色透明，文字不透明*/
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1000;
 }
 </style>
