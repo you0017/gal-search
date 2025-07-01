@@ -19,6 +19,9 @@ const search = async () => {
     if (result.code === 0){
         results.value = result.data;
         searched.value = true;
+
+        let aside = document.querySelector(".aside-card");
+        aside.style.display = "none";
     }else {
         results.value = [];
         searched.value = false;
