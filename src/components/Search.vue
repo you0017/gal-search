@@ -92,7 +92,6 @@ a {
 }
 
 .glass-card {
-  min-width: 380px;
   max-width: 90vw;
   padding: 2.5rem 2.5rem 2rem 2.5rem;
   border-radius: 1.5rem;
@@ -145,6 +144,7 @@ a {
 
 .search-form {
   display: flex;
+  justify-content: space-between;
   width: 100%;
   max-width: 500px;
   background: rgba(255,255,255,0.2);
@@ -270,5 +270,39 @@ a {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   padding: 20px;
   z-index: 1000;
+}
+
+@media screen and (max-width: 768px) {
+  .glass-card {
+    padding: 10px;
+  }
+
+  .aside-card {
+    top: 80%;
+    left: 50%;
+    height: 100px;
+    transform: translateX(-50%);
+  }
+
+  .search-form {
+    display: block;
+  }
+
+  .search-input {
+  }
+
+  .search-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .bg-full {
+    width: 100vw;
+    height: 100vh;
+    /* background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%); */
+    background-image: url("/public/imgs/66a10bf93d655205678266d1d3027ca4cdd53b17_raw.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 }
 </style>
