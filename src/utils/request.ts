@@ -25,7 +25,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
     result=>{
         //判断业务状态码
-        if(result.data.code === 0){
+        if(result.data.code === 200){
             return result.data;
         }
 

@@ -16,7 +16,7 @@ const search = async () => {
         return;
     }
     let result = await getGal(searchQuery.value);
-    if (result.code === 0){
+    if (result.code === 200){
         results.value = result.data;
         searched.value = true;
 
