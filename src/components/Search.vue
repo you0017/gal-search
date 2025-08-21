@@ -28,6 +28,10 @@ const search = async () => {
         ElMessage("没找到资源")
     }
 }
+
+const goToUrl = (url: string) => {
+    window.location.href = url;
+}
 </script>
 
 <template>
@@ -50,7 +54,7 @@ const search = async () => {
         <h2 class="result-title">搜索结果</h2>
         <div class="dropdown">
           <ul>
-            <li v-for="item in results" :key="item.name"><a :href="`${item.url}`">{{ item.name }}</a></li>
+              <li v-for="item in results" :key="item.name" @click="() => goToUrl(item.url)" class="result-item">{{ item.name }}</li>
           </ul>
         </div>
       </div>
@@ -79,6 +83,20 @@ a {
     text-decoration: none;
     color: #22223b;
     transition: color 0.2s;
+}
+
+.result-item {
+    display: block;
+    text-decoration: none;
+    color: #22223b;
+    padding: 0.7rem 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.result-item:hover {
+    color: #ff6a00;
+    background: rgba(238,9,121,0.08);
 }
 
 .bg-full {
