@@ -30,6 +30,7 @@ declare namespace API {
         email: string;
     }
     type GalVO = {
+        id: number;
         name: string;
         galDetailVOList: API.GalDetailVO[];
         description: string;

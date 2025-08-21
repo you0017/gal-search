@@ -29,8 +29,8 @@ const search = async () => {
     }
 }
 
-const goToUrl = (url: string) => {
-    window.location.href = url;
+const goToUrl = (id: number) => {
+    window.location.href = 'http://gal.youyou.love/gal/downLoad?id=' + id;
 }
 </script>
 
@@ -54,7 +54,7 @@ const goToUrl = (url: string) => {
         <h2 class="result-title">搜索结果</h2>
         <div class="dropdown">
           <ul>
-              <li v-for="item in results" :key="item.name" @click="() => goToUrl(item.url)" class="result-item">{{ item.name }}</li>
+              <li v-for="item in results" :key="item.name" @click="() => goToUrl(item.id)" class="result-item">{{ item.name }}</li>
           </ul>
         </div>
       </div>
